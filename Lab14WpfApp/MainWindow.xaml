@@ -1,0 +1,45 @@
+﻿<Window x:Class="Lab14WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab14WpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="500" x:Name="this">
+    <Window.Resources>
+        <DataTemplate x:Key="MyTemp">
+            <Border x:Name="bordrer" BorderBrush="Aqua" BorderThickness='1' Padding="5" Margin="5">
+            <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Наименование:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=ProductName}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Цена:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Price}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text=" "/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Image}"/>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=ProductType}">
+                    <DataTrigger.Value>
+                        <local:ProductTypes>Appliances</local:ProductTypes>
+
+                    </DataTrigger.Value>
+                    <Setter TargetName="bordrer" Property="BorderBrush" Value="Red"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <TextBlock Name="productTitle" FontSize="20" Text="Список товаров:"/>
+        <ListBox Name="ListBox" Margin="27,10,10,10" Height="288" ItemTemplate="{StaticResource MyTemp}" HorizontalContentAlignment="Stretch"/>
+    </StackPanel>
+</Window>
